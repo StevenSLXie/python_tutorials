@@ -70,6 +70,28 @@ enter func for 3rd time
 
 第一次执行时，打出了第一个print，然后在`yield 1`之后返回了。但是程序“记住”了“上一次”执行到的位置。当下一次进来时，从第二个print开始执行，然后在`yield 2`之后就返回了。
 
+注意，这里程序不会执行到`print('enter func for 4th time')`，因为到`yield 3`就返回了。如果我们再来一个`print(next(it))`，你会发现程序有两个输出：
+
+首先是
+
+```
+enter func for 4th time
+```
+
+这个很好理解，因为上一次是到`yield 3`，那么这一次就是继续往下执行`enter func for 4th time` 这句话。不过除了这个，还会报一个异常：
+
+```
+Traceback (most recent call last):
+  File "path/main.py", line 24, in <module>
+    print(next(it))
+StopIteration
+```
+
+`StopIteration`告诉你迭代已经结束了，不能再往下走了。
+
+
+
+
 
 
     
